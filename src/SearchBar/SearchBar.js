@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import './SearchBar.css'
 
 export class SearchBar extends React.Component {
