@@ -1,16 +1,22 @@
 import React from "react";
 import "./App.css";
 
+import { SearchBar } from "../../SearchBar/SearchBar";
+import { SearchResults } from "../../SearchResults/SearchResults";
+import { Playlist } from "../../Playlist/Playlist";
+
+
+
 export class App extends React.Component {
   render() {
     return (
       <div>
         <h1>
-          Ja<span class="highlight">mmm</span>ing
+          Ja<span className="highlight">mmm</span>ing
         </h1>
-        <div class="App">
+        <div className="App">
           {/* <SearchBar/> */}
-          <div class="App-playlist">
+          <div className="App-playlist">
             {/* <SearchResults/> */}
             {/* <Playlist/> */}
           </div>
