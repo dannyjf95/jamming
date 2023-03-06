@@ -20,7 +20,7 @@ export class Track extends React.Component { //displays button, track name/artis
   renderAction () {//was stuck how it was a prop until i read the step fully(if the isRemoval property)    
 
     return this.props.isRemoval
-    ? <button className="Track-action" >-</button>
+    ? <button className="Track-action" onClick={this.removeTrack}>-</button>
     : <button className="Track-action" onClick={this.addTrack}>+</button>
   }
 

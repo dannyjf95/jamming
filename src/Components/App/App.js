@@ -69,7 +69,7 @@ export class App extends React.Component {
             <Playlist
               playlistTracks={this.state.playlistTracks}
                 playlistName={this.state.playlistName}
-                  onRemove={this.onRemove}
+                  onRemove={this.removeTrack}
             />
           </div>
         </div>
