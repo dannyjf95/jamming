@@ -27,6 +27,9 @@ export class App extends React.Component {
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack =  this.removeTrack.bind(this)
+    this.updatePlaylistName = this.updatePlaylistName.bind(this)
+    this.savePlaylist = this.savePlaylist.bind(this)
+    this.search = this.search.bind(this)
   }
   //end of constructor
 
@@ -48,6 +51,18 @@ export class App extends React.Component {
 
     this.setState({ playlistTracks: tracks })
   }
+  updatePlaylistName(name) {
+    this.setState({playlistName: name})
+  }
+
+  savePlaylist() {//In a later section, you will hook the .search() method up to the Spotify API.
+    //creates new arr via .mpa()
+    let trackUris = this.state.playlistTracks.map(track => track.uri) 
+  }
+
+  search (term) {//In a later assessment, we will hook this method up to the Spotify API.
+    console.log(term)
+  }
 
   render() {
     return (
@@ -57,7 +72,7 @@ export class App extends React.Component {
         </h1>
         <div className="App">
           {/*  */}
-          <SearchBar />
+          <SearchBar onSearch={this.search}/>
           {/*  */}
           <div className="App-playlist">
             {/*  */}
@@ -70,6 +85,8 @@ export class App extends React.Component {
               playlistTracks={this.state.playlistTracks}
                 playlistName={this.state.playlistName}
                   onRemove={this.removeTrack}
+                    onNameChange={this.updatePlaylistName}
+                      onSave={this.savePlaylist} 
             />
           </div>
         </div>
