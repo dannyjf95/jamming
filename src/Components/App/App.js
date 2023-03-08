@@ -5,6 +5,7 @@ import { SearchBar } from "../../SearchBar/SearchBar";
 import { SearchResults } from "../../SearchResults/SearchResults";
 import { Playlist } from "../../Playlist/Playlist";
 // import { Track } from "../../Track/Track";
+import { Spotify } from "../../util/Spotify";
 
 export class App extends React.Component {
   constructor(props) {
@@ -61,6 +62,7 @@ export class App extends React.Component {
   }
 
   search (term) {//In a later assessment, we will hook this method up to the Spotify API.
+    Spotify.search()
     console.log(term)
   }
 
