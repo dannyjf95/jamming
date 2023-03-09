@@ -12,8 +12,8 @@ export class Playlist extends React.Component {
 
   handleNameChange(e) {
     //targets the input from the onChange render // PLAY AROUND
-    const event = e.target.value;
-    this.props.onNameChange(event);
+    
+    this.props.onNameChange(e.target.value);
   }
 
   render() {

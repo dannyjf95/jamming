@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 
-import { SearchBar } from "../../SearchBar/SearchBar";
-import { SearchResults } from "../../SearchResults/SearchResults";
-import { Playlist } from "../../Playlist/Playlist";
+import { SearchBar } from "../SearchBar/SearchBar";
+import { SearchResults } from "../SearchResults/SearchResults";
+import { Playlist } from "../Playlist/Playlist";
 // import { Track } from "../../Track/Track";
 import { Spotify } from "../../util/Spotify";
 
@@ -12,17 +12,9 @@ export class App extends React.Component {
     super(props);
 
     this.state = {
-      searchResults: [
-        { name: "Wonderwall", artist: "Oasis", album: "(What's The Story) Morning Glory?", id: 1 },
-        { name: "name2", artist: "artist2", album: "album2", id: 2 },
-        { name: "name3", artist: "artist3", album: "album3", id: 3 },
-      ],
+      searchResults: [],
 
-      playlistTracks: [
-        { name: "playlistName1", artist: "playlistArtist1", album: "playlistAlbum1", id: 4 },
-        { name: "playlistName2", artist: "playlistArtist1", album: "playlistAlbum2", id: 5 },
-        { name: "playlistName3", artist: "playlistArtist1", album: "playlistAlbum3", id: 6 },
-      ],
+      playlistTracks: [],
 
       playlistName: "Playlist filler",
     };
@@ -58,12 +50,21 @@ export class App extends React.Component {
 
   savePlaylist() {//In a later section, you will hook the .search() method up to the Spotify API.
     //creates new arr via .mpa()
+    
     let trackUris = this.state.playlistTracks.map(track => track.uri) 
+    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {//after it  is saved // i w as lost on this  part 70%
+      this.setState({
+        playlistName: 'New Playlist',
+        playlistTracks: []
+      })
+    })
   }
 
-  search (term) {//In a later assessment, we will hook this method up to the Spotify API.
-    Spotify.search()
-    console.log(term)
+  search(term) {//In a later assessment, we will hook this method up to the Spotify API.
+    Spotify.search(term).then(searchResults => {//updating searchResults state from jsonResponse
+      this.setState({searchResults: searchResults})
+    })
+    
   }
 
   render() {
