@@ -44,10 +44,10 @@ export const Spotify = {
       ? []
       : jsonResponse.tracks.items.map((track) => ({
           id: track.id,
-            name: track.name,
-              artist: track.artists[0].name,
-                album: track.album.name,
-                  uri: track.uri,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
+          uri: track.uri,
         }));
   },
 
@@ -58,7 +58,7 @@ export const Spotify = {
     let userId;
     const accessToken = Spotify.getAccessToken();
     const headers = { Authorization: `Bearer ${accessToken}` };
-  
+
     try {
       const response = await fetch(`https://api.spotify.com/v1/me`, {
         headers: headers,
@@ -66,7 +66,7 @@ export const Spotify = {
       console.log(response);
       const jsonResponse = await response.json();
       userId = jsonResponse.id;
-  
+
       const userIdResponse = await fetch(
         `https://api.spotify.com/v1/users/${userId}/playlists`,
         {
@@ -78,7 +78,7 @@ export const Spotify = {
       console.log(userIdResponse);
       const userIdJsonResponse = await userIdResponse.json();
       const playlistId = userIdJsonResponse.id;
-  
+
       const playlistResponse = await fetch(
         `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
         {
@@ -94,5 +94,4 @@ export const Spotify = {
       console.error(error);
     }
   },
-  
 };

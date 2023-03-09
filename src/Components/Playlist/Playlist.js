@@ -12,7 +12,7 @@ export class Playlist extends React.Component {
 
   handleNameChange(e) {
     //targets the input from the onChange render // PLAY AROUND
-    
+
     this.props.onNameChange(e.target.value);
   }
 
