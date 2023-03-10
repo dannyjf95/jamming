@@ -61,7 +61,7 @@ export class App extends React.Component {
       await Spotify.savePlaylist(
         this.state.playlistName,
         trackUris,
-        this.state.playlistId,
+        this.state.playlistId
       );
 
       this.setState({
@@ -75,7 +75,8 @@ export class App extends React.Component {
   }
 
   addTrack(track) {
-    let tracks = this.state.playlistTracks; // to avoid directly mod the state
+    // to avoid directly mod the state
+    let tracks = this.state.playlistTracks;
 
     /* comparing id of searched track and playlist track
     .push()state.playlistTracks if no matching id(new song)*/
@@ -96,11 +97,17 @@ export class App extends React.Component {
     this.setState({ playlistName: name });
   }
 
-  search(term) {
+  async search(term) {
+    try {
+      const searchResults = await Spotify.search(term);
+      this.setState({
+        searchResults: searchResults,
+      });
+    } catch (error) {
+      console.console.log(error);
+    }
+
     //updating searchResults state from jsonResponse
-    Spotify.search(term).then((searchResults) => {
-      this.setState({ searchResults: searchResults });
-    });
   }
 
   render() {

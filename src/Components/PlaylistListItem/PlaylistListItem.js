@@ -16,7 +16,7 @@ export class PlaylistListItem extends React.Component {
     return (
       <div className="playlistListItem" onClick={this.selectList}>
         <h3 playlist={this.props.playlistName} onClick={this.selectList}>
-          {this.props.playListName}
+          {this.props.playlistName} 
         </h3>
       </div>
     );

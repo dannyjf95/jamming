@@ -6,8 +6,8 @@ export class PlaylistList extends React.Component {
  
   render() {
     return (
-      <div className="playlistLIst">
-        {/* <h2>Your Current playlists</h2> */}
+      <div className="playlistList">
+        <h2>Your Current playlists</h2>
         {this.props.playlistList.map((playlist) => {
           return (
             <PlaylistListItem

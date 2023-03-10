@@ -1,4 +1,4 @@
-const clientID = "ca70f74f8bbc431bb94fa84dd6babf2b";
+const clientID = "019dbe2ce8a6414b887cad35172bd235";
 const redirectUri = "http://localhost:3000/";
 let accessToken;
 let userId;
@@ -113,7 +113,7 @@ export const Spotify = {
     const headers = { Authorization: `Bearer ${accessToken}` };
 
     try {
-      const response = await fetch(`https://api.spotify.com/v1/me`, {
+      const response = await fetch(`https://api.spotify.com/v1/me `, {
         headers: headers,
       });
       console.log(response);
