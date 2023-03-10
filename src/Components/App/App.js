@@ -1,11 +1,13 @@
+//react import section
 import React from "react";
-import "./App.css";
 
+//file import section
+import "./App.css";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { SearchResults } from "../SearchResults/SearchResults";
 import { Playlist } from "../Playlist/Playlist";
-// import { Track } from "../../Track/Track";
 import { Spotify } from "../../util/Spotify";
+import { PlaylistList } from "../PlaylistList/PlaylistList";
 
 export class App extends React.Component {
   constructor(props) {
@@ -17,14 +19,60 @@ export class App extends React.Component {
       playlistTracks: [],
 
       playlistName: "Playlist filler",
+
+      playlistList: [],
+
+      playlistId: null,
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.selectPlaylist = this.selectPlaylist.bind(this);
+  } //end constructor
+
+  async componentDidMount() {
+    try {
+      const playlistList = await Spotify.getUserPlaylists();
+      this.setState({ playlistList });
+    } catch (error) {
+      console.log(error);
+    }
   }
-  //end of constructor
+
+  async selectPlaylist(id) {
+    try {
+      const plistID = await Spotify.getPlaylist(id);
+      this.setState({
+        playlistName: plistID.name,
+        playlistTracks: plistID.tracks,
+        playlistId: plistID.id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async savePlaylist() {
+    const trackUris = this.state.playlistTracks.map((track) => track.uri);
+
+    try {
+      await Spotify.savePlaylist(
+        this.state.playlistName,
+        trackUris,
+        this.state.playlistId,
+      );
+
+      this.setState({
+        playlistName: "New Playlist",
+        playlistTracks: [],
+        playlistId: null,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   addTrack(track) {
     let tracks = this.state.playlistTracks; // to avoid directly mod the state
@@ -48,24 +96,9 @@ export class App extends React.Component {
     this.setState({ playlistName: name });
   }
 
-  savePlaylist() {
-    //In a later section, you will hook the .search() method up to the Spotify API.
-    //creates new arr via .mpa()
-
-    let trackUris = this.state.playlistTracks.map((track) => track.uri);
-    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
-      //after it  is saved // i w as lost on this  part 70%
-      this.setState({
-        playlistName: "New Playlist",
-        playlistTracks: [],
-      });
-    });
-  }
-
   search(term) {
-    //In a later assessment, we will hook this method up to the Spotify API.
+    //updating searchResults state from jsonResponse
     Spotify.search(term).then((searchResults) => {
-      //updating searchResults state from jsonResponse
       this.setState({ searchResults: searchResults });
     });
   }
@@ -95,6 +128,10 @@ export class App extends React.Component {
               onSave={this.savePlaylist}
             />
           </div>
+          <PlaylistList
+            playlistList={this.state.playlistList}
+            selectPlaylist={this.selectPlaylist}
+          />
         </div>
       </div>
     );

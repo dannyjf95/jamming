@@ -1,0 +1,9 @@
+.PlaylistListItem {
+  display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(256, 256, 256, 0.8);
+}
+
+.PlaylistListItem h3 {
+  margin-bottom: .22rem;
+}
