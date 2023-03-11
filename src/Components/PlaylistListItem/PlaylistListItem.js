@@ -12,11 +12,12 @@ export class PlaylistListItem extends React.Component {
     this.props.selectPlaylist(this.props.playlistName);
   }
 
-  render() { // all have an onClick
+  render() {
+    // all have an onClick
     return (
       <div className="playlistListItem" onClick={this.selectList}>
         <h3 playlist={this.props.playlistName} onClick={this.selectList}>
-          {this.props.playlistName} 
+          {this.props.playlistName}
         </h3>
       </div>
     );

@@ -3,7 +3,6 @@ import "./PlaylistList.css";
 import { PlaylistListItem } from "../PlaylistListItem/PlaylistListItem";
 
 export class PlaylistList extends React.Component {
- 
   render() {
     return (
       <div className="playlistList">
